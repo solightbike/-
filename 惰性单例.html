@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var getSingleton = function(fn){
+            var result
+            
+            return function(name){
+                console.log(arguments)
+                
+                return result || (result = fn.apply(this,arguments))
+            }
+        }
+        // function Person(name){
+        //     this.name=name
+        // }
+        class Person{
+            constructor(name){
+                this.name = name
+            }
+        }
+        var creatPerson = function(name){
+            let person =  new Person(name)
+            return person
+        }
+
+        var createSinglePerson = getSingleton(creatPerson)
+        let p1 = createSinglePerson('lisi')
+        let p2 = createSinglePerson('wangwu')
+        console.log(p1===p2)
+
+    //     var createLoginLayer = function(){
+    //         var div = document.createElement('div')
+    //         div.innerHTML = '我是登录窗口'
+    //         document.body.appendChild(div)
+    //         return div
+    //     }
+
+    //     let createSingleLoginLayer = getSingleton(createLoginLayer)
+    //     console.log(createSingleLoginLayer())
+    //    let p1 = createSingleLoginLayer()
+    //    let p2 = createSingleLoginLayer()
+    //    console.log(p1===p2)
+       
+       
+        
+    </script>
+</body>
+</html>

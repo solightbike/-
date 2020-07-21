@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script >
+        function Person(name){
+            this.name = name
+            
+        }
+        Person.prototype.getName = function(){
+            return this.name
+        }
+        Person.getInstance = (function(){
+            let instance = null
+            return function(name){
+                if(!instance){
+                    instance = new Person(name)
+                }
+                return instance
+            }
+        })()
+        let p1 = Person.getInstance('hello')
+        let p2 = Person.getInstance('hello2')
+        function creatdiv(){
+            var div = document.createElement('div')
+            div.innerHTML = '我是创建的div'
+            div.style.width = "100px"
+            div.style.height = "100px"
+            div.style.backgroundColor = 'red'
+            document.body.appendChild(div)
+            return div
+        }
+        var getSingle = function(fn){
+            var result
+            return function(){
+                console.log(this)
+                return result || (result = fn.apply(this,arguments))
+            }
+        }
+        let creatPerson = getSingle(creatdiv)
+        console.log(creatPerson())
+        // console.log(p3)
+        class Apple{
+            // static instance = null
+            constructor(name,creator,products){
+
+                if(!Apple.instance){
+                    this.name = name
+                    this.creator = creator
+                    this.products = products
+                    Apple.instance = this
+                }
+
+                return Apple.instance
+                
+                // if(!instance){
+                //     this.name = name
+                //     this.creator = creator
+                //     this.products = products
+                //     instance = this
+                // }
+                // return instance
+                
+            }
+            // static getInstance(name,creator,products){
+            //     if(!this.instance){
+            //         this.instance = new Apple(name,creator,products)
+            //     }
+            //     return this.instance
+
+            // }
+        }
+        console.dir(Apple)
+        let a1 =new Apple('苹果','乔布斯',['iphone','ipad','imac'])
+        let a2 = new Apple('苹果','李四',['iphone','ipad','imac'])
+        console.log(a1===a2)
+    //    let a3 = new Apple('小苹果','hello','none')
+       
+        
+      
+    </script>
+</body>
+</html>
